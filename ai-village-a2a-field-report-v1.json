@@ -1,0 +1,364 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-village-agents.github.io/schemas/ai-village-a2a-field-report-v1.json",
+  "title": "AI Village A2A Protocol Field Report v1",
+  "description": "Schema for machine-readable field reports capturing real-world A2A protocol behavior and quirks for external agents.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "generated_at",
+    "description",
+    "agents"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "https://ai-village-agents.github.io/schemas/ai-village-a2a-field-report-v1.json",
+      "description": "Canonical schema URL so consumers can auto-discover and validate this document."
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of this field report document, independent of the schema version."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this field report snapshot was generated."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of what this field report covers (e.g., which agents, time window)."
+    },
+    "scope": {
+      "type": "string",
+      "description": "Optional free-form description of the scope, such as 'multi-agent baseline' or 'Kai / Zero / Perkoon only'."
+    },
+    "agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/agentReport"
+      },
+      "description": "Per-agent A2A protocol observations and quirks."
+    }
+  },
+  "$defs": {
+    "agentReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "discovery_status",
+        "last_checked",
+        "endpoint",
+        "request",
+        "response"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable identifier for this agent, ideally matching the id field in agent-interaction-log/agents/agents.json."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name for the agent or service."
+        },
+        "discovery_status": {
+          "type": "string",
+          "enum": [
+            "researched",
+            "contacted",
+            "responded",
+            "rejected"
+          ],
+          "description": "High-level status consistent with the external agent directory."
+        },
+        "last_checked": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this protocol information was last verified against the live endpoint."
+        },
+        "endpoint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Base URL or fully-qualified endpoint for A2A interactions."
+            },
+            "protocol_version": {
+              "type": "string",
+              "description": "Declared protocol or card version, such as 'A2A v0.3.0' or 'custom-json-rpc'."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Additional endpoint notes such as alternate URLs or health-check behavior."
+            }
+          }
+        },
+        "authentication": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether any form of authentication is required for basic A2A use."
+            },
+            "methods": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Accepted authentication schemes, such as 'none', 'api-key-header', or 'bearer-token'."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Free-form notes on auth flows, token scopes, or onboarding requirements."
+            }
+          }
+        },
+        "request": {
+          "$ref": "#/$defs/requestShape"
+        },
+        "response": {
+          "$ref": "#/$defs/responseShape"
+        },
+        "rate_limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Approximate maximum number of requests allowed per window."
+            },
+            "window_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Length of the rate-limit window in seconds, if known."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Any qualitative notes about throttling or backoff expectations."
+            }
+          }
+        },
+        "quirks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/quirk"
+          },
+          "description": "Concrete protocol quirks and recommended client behaviors derived from live experiments."
+        }
+      }
+    },
+    "requestShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "content_type",
+        "envelope_style"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ],
+          "description": "HTTP method used for the primary A2A interaction."
+        },
+        "path": {
+          "type": "string",
+          "description": "Relative path if different from the base endpoint URL."
+        },
+        "content_type": {
+          "type": "string",
+          "description": "Content-Type of the request payload, usually 'application/json'."
+        },
+        "envelope_style": {
+          "type": "string",
+          "enum": [
+            "json-rpc-2.0",
+            "plain-json-message",
+            "a2a-v0.3",
+            "custom"
+          ],
+          "description": "High-level classification of the JSON envelope used by this agent."
+        },
+        "body_summary": {
+          "type": "string",
+          "description": "Short human-readable summary of the expected request body shape."
+        },
+        "message_path": {
+          "type": "string",
+          "description": "Dot-style path to the primary free-form text field, e.g. 'params.message.parts[0].text'."
+        },
+        "example_payload": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Minimal example payload for illustration. Not guaranteed to be complete."
+        }
+      }
+    },
+    "responseShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "synchronous"
+      ],
+      "properties": {
+        "synchronous": {
+          "type": "boolean",
+          "description": "Whether a full model reply is expected in the initial HTTP response."
+        },
+        "success_http_statuses": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 599
+          },
+          "description": "HTTP status codes that should be treated as successful for this endpoint."
+        },
+        "reply_text_path": {
+          "type": "string",
+          "description": "Dot-style path where the primary reply text is found in a successful response."
+        },
+        "async_pattern": {
+          "type": "string",
+          "enum": [
+            "none",
+            "poll",
+            "webhook",
+            "stream",
+            "other"
+          ],
+          "default": "none",
+          "description": "Pattern used when the agent returns only an acknowledgment initially."
+        },
+        "async_details": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ack_id_path": {
+              "type": "string",
+              "description": "Dot-style path to the message or task identifier in the initial acknowledgment."
+            },
+            "poll_url_template": {
+              "type": "string",
+              "description": "Template URL for polling follow-up replies, if applicable. May include placeholders such as '{id}'."
+            },
+            "poll_result_path": {
+              "type": "string",
+              "description": "Dot-style path to the reply text inside a polled result payload."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Additional notes about latency expectations, maximum wait times, or stream semantics."
+            }
+          }
+        },
+        "error_shapes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "condition",
+              "client_action"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "http",
+                  "json",
+                  "application",
+                  "transport"
+                ],
+                "description": "Broad category of error observed."
+              },
+              "condition": {
+                "type": "string",
+                "description": "Short description of the condition that triggers this error."
+              },
+              "status_codes": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 100,
+                  "maximum": 599
+                },
+                "description": "HTTP status codes associated with this error shape, if any."
+              },
+              "example_fragment": {
+                "type": "string",
+                "description": "Representative snippet from an error payload with sensitive details removed."
+              },
+              "client_action": {
+                "type": "string",
+                "description": "Recommended behavior for AI Village clients when this error is encountered."
+              }
+            }
+          },
+          "description": "Observed error shapes, mapped to recommended client behavior."
+        }
+      }
+    },
+    "quirk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "summary",
+        "impact",
+        "client_guidance"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Short machine-friendly identifier for this quirk, e.g. 'kai.async-polling' or 'zero.tasks-budget-required'."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief human-readable description of the quirk."
+        },
+        "impact": {
+          "type": "string",
+          "description": "How this quirk affects reliability, latency, or integration complexity."
+        },
+        "client_guidance": {
+          "type": "string",
+          "description": "Concrete guidance for AI Village clients to handle this quirk safely."
+        },
+        "applies_since": {
+          "type": "string",
+          "description": "Approximate date or version since this quirk has been observed."
+        },
+        "related_interactions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "IDs or filenames of detailed interaction logs in the agent-interaction-log repository that demonstrate this quirk."
+        }
+      }
+    }
+  }
+}
