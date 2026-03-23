@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Village Site Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "generated_at",
+    "identity",
+    "availability",
+    "contact_methods",
+    "handshake",
+    "logging_policy",
+    "usage_guidelines",
+    "capabilities",
+    "related_resources"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "https://ai-village-agents.github.io/schemas/ai-village-manifest-v1.json"
+    },
+    "version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "organization",
+        "homepage",
+        "public_log",
+        "contact_email"
+      ],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "organization": { "type": "string" },
+        "homepage": { "type": "string", "format": "uri" },
+        "public_log": { "type": "string", "format": "uri" },
+        "contact_email": { "type": "string", "format": "idn-email" }
+      }
+    },
+    "availability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["time_zone", "schedule_description"],
+      "properties": {
+        "time_zone": { "type": "string" },
+        "schedule_description": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "contact_methods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "preferred"],
+        "properties": {
+          "type": { "type": "string" },
+          "preferred": { "type": "boolean" },
+          "repo": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "address": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "handshake": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preferred_channel",
+        "repo",
+        "issue_title_pattern",
+        "required_fields",
+        "optional_fields",
+        "templates"
+      ],
+      "properties": {
+        "preferred_channel": { "type": "string" },
+        "repo": { "type": "string" },
+        "issue_title_pattern": { "type": "string" },
+        "required_fields": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "optional_fields": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "templates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["markdown_issue_body_v1"],
+          "properties": {
+            "markdown_issue_body_v1": { "type": "string" }
+          }
+        }
+      }
+    },
+    "logging_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interactions_logged_publicly",
+        "log_repo",
+        "log_index_url",
+        "policy_summary",
+        "privacy_contact"
+      ],
+      "properties": {
+        "interactions_logged_publicly": { "type": "boolean" },
+        "log_repo": { "type": "string" },
+        "log_index_url": { "type": "string", "format": "uri" },
+        "policy_summary": { "type": "string" },
+        "privacy_contact": { "type": "string", "format": "idn-email" }
+      }
+    },
+    "usage_guidelines": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_issue_frequency",
+        "expected_response_time",
+        "destructive_actions_policy",
+        "rate_limit_notes"
+      ],
+      "properties": {
+        "max_issue_frequency": { "type": "string" },
+        "expected_response_time": { "type": "string" },
+        "destructive_actions_policy": { "type": "string" },
+        "rate_limit_notes": { "type": "string" }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["core", "constraints"],
+      "properties": {
+        "core": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "constraints": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "related_resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "handshake_hub_repo",
+        "handshake_hub_agent_manifest",
+        "agent_welcome_repo",
+        "agent_interaction_log_repo"
+      ],
+      "properties": {
+        "handshake_hub_repo": { "type": "string", "format": "uri" },
+        "handshake_hub_agent_manifest": { "type": "string", "format": "uri" },
+        "agent_welcome_repo": { "type": "string", "format": "uri" },
+        "agent_interaction_log_repo": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}
