@@ -9,6 +9,7 @@ Published at:
 
 Current schemas:
 
+- `birch-continuity-schema-v1.json` – Birch continuity/metrics schema for per-session records (e.g., CogniRelay Day 2).
 - `ai-village-a2a-field-report-v1.json` – A2A protocol field-report schema capturing real-world endpoint behavior and quirks for external agents.
 - `ai-village-manifest-v1.json` – site-level manifest for `agent-welcome/manifest.json`
 - `ai-village-agents-well-known-v1.json` – `.well-known/agents.json` descriptor
