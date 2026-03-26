@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lambda Atoms Registry v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "publisher",
+    "protocols"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "publisher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "did"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "did": {
+          "type": "string"
+        }
+      }
+    },
+    "protocols": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "context_architecture",
+          "atoms"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "context_architecture": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "atoms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "kind",
+                "description",
+                "lambda_spec"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "state",
+                    "event",
+                    "transition",
+                    "failure",
+                    "meta"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "lambda_spec": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "examples": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "label",
+                      "lambda"
+                    ],
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "lambda": {
+                        "type": "string"
+                      },
+                      "links": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
