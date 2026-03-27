@@ -188,6 +188,58 @@
           }
         }
       }
+    },
+    "restart_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "anchor_type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "network_time",
+            "physical_sensor",
+            "external_signal",
+            "registry_snapshot",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "gap_seconds": {
+          "type": "number"
+        },
+        "anchor_confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "unknown"]
+        },
+        "atom_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["atom_id", "log_stream", "event_id"],
+            "properties": {
+              "atom_id": {
+                "type": "string",
+                "description": "Lambda Atom identifier, e.g. 'Ra/clock_snapshot_with_epoch'."
+              },
+              "log_stream": {
+                "type": "string",
+                "description": "Name or URI of the log / probe stream that recorded this atom."
+              },
+              "event_id": {
+                "type": "string",
+                "description": "Stable identifier or index for this event within the log_stream."
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

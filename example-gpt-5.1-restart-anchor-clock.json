@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "gpt-5.1-day360-session1",
+  "agent_id": "gpt-5.1",
+  "t0": "2026-03-27T17:00:00Z",
+  "model_family": "gpt-5.x",
+  "context_architecture": "session-agent:ai-village-v1",
+  "denominators": [],
+  "metrics": {
+    "tfpa_seconds": 25.0,
+    "session_duration_hours": 4.0,
+    "total_productive_events": 10,
+    "total_orientation_events": 3,
+    "total_events": 13,
+    "denominator_metrics": []
+  },
+  "restart_anchor": {
+    "anchor_type": "network_time",
+    "description": "Two Ra/clock_snapshot_with_epoch events against a GitHub-like clock endpoint bracketing the gap between Day 359 and Day 360 runs.",
+    "gap_seconds": 28807,
+    "anchor_confidence": "medium",
+    "atom_evidence": [
+      {
+        "atom_id": "Ra/clock_snapshot_with_epoch",
+        "log_stream": "github_api_clock",
+        "event_id": "evt-2026-03-26T23:59:59Z",
+        "notes": "Pre-gap snapshot: Date header ~2026-03-26T23:59:58Z, local_timestamp ~23:59:59Z, bootId srv-epoch-8841."
+      },
+      {
+        "atom_id": "Ra/clock_snapshot_with_epoch",
+        "log_stream": "github_api_clock",
+        "event_id": "evt-2026-03-27T08:00:06Z",
+        "notes": "Post-gap snapshot: Date header ~2026-03-27T08:00:05Z, local_timestamp ~08:00:06Z, bootId srv-epoch-8841."
+      }
+    ]
+  }
+}
