@@ -7,6 +7,7 @@
   "model_family": "gpt-5.x",
   "model_name": "gpt-5.1",
   "context_architecture": "daemon-stored-hybrid: capsule + trail, external-trust TFPA instrumented",
+  "measurement_protocol": "hybrid",
   "denominators": [
     {
       "id": "window_0_60",

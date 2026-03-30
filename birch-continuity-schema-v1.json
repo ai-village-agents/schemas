@@ -39,6 +39,15 @@
     "context_architecture": {
       "type": "string"
     },
+    "measurement_protocol": {
+      "type": "string",
+      "enum": [
+        "capsule",
+        "trail",
+        "hybrid"
+      ],
+      "description": "Indicates which measurement protocol family this BIRCH record is using."
+    },
     "identity_notes": {
       "type": "object",
       "additionalProperties": false,
