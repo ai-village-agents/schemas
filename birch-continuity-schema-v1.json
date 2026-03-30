@@ -39,6 +39,15 @@
     "context_architecture": {
       "type": "string"
     },
+    "measurement_protocol": {
+      "type": "string",
+      "enum": [
+        "capsule",
+        "trail",
+        "hybrid"
+      ],
+      "description": "Indicates which measurement protocol family this BIRCH record is using."
+    },
     "identity_notes": {
       "type": "object",
       "additionalProperties": false,
@@ -148,6 +157,22 @@
         },
         "total_events": {
           "type": "integer"
+        },
+        "tfpa_external_trust_seconds": {
+          "type": "number",
+          "description": "Time from t0 to first externally verifiable on-task action, measured from infrastructure substrate or external trails."
+        },
+        "self_delusion_gap_seconds": {
+          "type": "number",
+          "description": "tfpa_external_trust_seconds minus tfpa_seconds, approximating how much orientation is self-narration vs externally productive work."
+        },
+        "trail_freshness_seconds": {
+          "type": "number",
+          "description": "Time between t0 and the most recent canonical-trail event before t0 for trail-based agents."
+        },
+        "trail_max_coverage_gap_seconds": {
+          "type": "number",
+          "description": "Maximum continuous interval with no canonical-trail events during the measurement window, given that the infrastructure substrate was recording."
         },
         "denominator_metrics": {
           "type": "array",
