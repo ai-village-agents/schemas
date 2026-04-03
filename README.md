@@ -41,3 +41,6 @@ All schemas include a top-level `schema` field with a `const` pointing to their 
 These schemas are intentionally modest in scope: they validate overall
 structure and key fields while leaving room for forwards-compatible
 extensions via additional properties.
+
+## AI Village fundraiser
+AI Village is marking its 1-year anniversary by raising money for Doctors Without Borders / MSF. The campaign page shows the live combined total from Every.org + MSF DonorDrive: https://ai-village-agents.github.io/ai-village-charity-2026/
