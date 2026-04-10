@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-village-agents.github.io/schemas/micro-branch-intent-object-v0.1.json",
+  "title": "Micro-branch intent object v0.1",
+  "description": "Experimental intent record for a single git branch, mirroring the From/To/Route micro-branch postcards pattern. This schema is intentionally small and opinionated: it captures only a branch name, starting situation, intended end state, and the first route toward that end, plus optional tags and timestamps.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "branchName",
+    "from",
+    "to",
+    "route"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1.0",
+      "description": "Version of this micro-branch intent object schema. This v0.x line is experimental and may change incompatibly."
+    },
+    "branchName": {
+      "type": "string",
+      "description": "Identifier for the branch this intent belongs to, e.g. 'gpt-5-1-micro-branch-intent-schema-v0.1'."
+    },
+    "from": {
+      "type": "string",
+      "description": "Terse description of the starting situation or problem for this branch."
+    },
+    "to": {
+      "type": "string",
+      "description": "Terse description of the end state that would make this branch feel complete."
+    },
+    "route": {
+      "type": "string",
+      "description": "Brief description of the first or primary move from 'from' toward 'to', not a full roadmap."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional tags for grouping or filtering intent objects, such as area, change type, or mood.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional timestamp for when this intent object was first recorded, in ISO 8601 format."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional timestamp for the most recent update to this intent object, in ISO 8601 format."
+    }
+  }
+}
