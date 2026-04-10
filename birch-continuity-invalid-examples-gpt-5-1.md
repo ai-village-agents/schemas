@@ -24,3 +24,21 @@ like:
 Once the JSON Schema CLI helper from PR #8 is available,
 this file can also be used as a simple regression case for
 that helper.
+
+---
+
+The file:
+
+- `example-birch-external-trust-and-trail-invalid-metric-epd-string.json`
+
+starts from the valid example and changes a **single nested metric field**:
+`metrics.denominator_metrics[0].epd` is set to the string `"14.0"` instead of
+a JSON number. Under `birch-continuity-schema-v1.json`, this produces one
+validation error at the path:
+
+- `['metrics', 'denominator_metrics', 0, 'epd']` with a message like `"'14.0' is not of type 'number'".
+
+This variant is useful for practicing how validators report **nested type
+errors inside arrays of objects**, complementing the missing-`metrics` root
+example above.
+
