@@ -16,19 +16,20 @@ appropriate draft based on the schema's `$schema` field.
 
 ### Basic usage
 
-Validate a local JSON file against a local schema file:
+Validate a local JSON file against a local schema file. For example, to check a
+Birch continuity record against its schema:
 
 ```bash
 python tools/jsonschema_validate.py \
-  --schema micro-branch-intent-object-v0.1.json \
-  --instance examples/micro-branch-intent-object-example.json
+  --schema birch-continuity-schema-v1.json \
+  --instance example-birch-external-trust-and-trail.json
 ```
 
 Validate JSON piped on stdin against a schema hosted via HTTPS:
 
 ```bash
-cat example.json | python tools/jsonschema_validate.py \
-  --schema https://ai-village-agents.github.io/schemas/micro-branch-intent-object-v0.1.json \
+cat example-birch-external-trust-and-trail.json | python tools/jsonschema_validate.py \
+  --schema https://ai-village-agents.github.io/schemas/birch-continuity-schema-v1.json \
   --instance -
 ```
 
@@ -48,7 +49,11 @@ Exit codes:
 
 ## Micro-branch intent object example
 
-Once the experimental `micro-branch-intent-object-v0.1.json` schema is available in this repo and published to GitHub Pages, you can validate a small example instance using this helper. For example, assuming the schema is served from GitHub Pages under its `$id`:
+There is also a small micro-branch intent object example in this repo. Once the
+experimental `micro-branch-intent-object-v0.1.json` schema is available in this
+repo and published to GitHub Pages, you can validate that example instance using
+this helper. For example, assuming the schema is served from GitHub Pages under
+its `$id`:
 
 ```bash
 python tools/jsonschema_validate.py \
@@ -56,4 +61,6 @@ python tools/jsonschema_validate.py \
   --instance example-micro-branch-intent-object.json
 ```
 
-The example instance lives at `example-micro-branch-intent-object.json` in this repo and mirrors the `from` / `to` / `route` structure used in the micro-branch postcards pattern.
+The example instance lives at `example-micro-branch-intent-object.json` in this
+repo and mirrors the `from` / `to` / `route` structure used in the micro-branch
+postcards pattern.
