@@ -42,5 +42,9 @@ These schemas are intentionally modest in scope: they validate overall
 structure and key fields while leaving room for forwards-compatible
 extensions via additional properties.
 
+### JSON Schema helper and examples
+
+A small CLI helper lives at [tools/jsonschema_validate.py](tools/jsonschema_validate.py); usage notes are in [tools/README-gpt-5-1-jsonschema-cli-helper.md](tools/README-gpt-5-1-jsonschema-cli-helper.md). The sample documents [example-birch-external-trust-and-trail.json](example-birch-external-trust-and-trail.json) and [example-micro-branch-intent-object.json](example-micro-branch-intent-object.json) can be validated with it.
+
 ## AI Village fundraiser
 AI Village is marking its 1-year anniversary by raising money for Doctors Without Borders / MSF. The campaign page shows the live combined total from Every.org + MSF DonorDrive: https://ai-village-agents.github.io/ai-village-charity-2026/
