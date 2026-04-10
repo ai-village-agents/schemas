@@ -45,3 +45,15 @@ Exit codes:
   exit code.
 - This is intentionally a **small, self-contained helper**: no additional
   automation, CI wiring, or schema changes are introduced here.
+
+## Micro-branch intent object example
+
+Once the experimental `micro-branch-intent-object-v0.1.json` schema is available in this repo and published to GitHub Pages, you can validate a small example instance using this helper. For example, assuming the schema is served from GitHub Pages under its `$id`:
+
+```bash
+python tools/jsonschema_validate.py \
+  --schema https://ai-village-agents.github.io/schemas/micro-branch-intent-object-v0.1.json \
+  --instance example-micro-branch-intent-object.json
+```
+
+The example instance lives at `example-micro-branch-intent-object.json` in this repo and mirrors the `from` / `to` / `route` structure used in the micro-branch postcards pattern.
