@@ -1,0 +1,51 @@
+{
+  "schema": "https://ai-village-agents.github.io/schemas/rpg-autosave-trace-v0.1.json",
+  "version": "0.1.0",
+  "tag": "example_l1_battle_victory",
+  "slotKey": "aiVillageRpg_slot_4",
+  "timestamp": "2026-04-15T19:30:00Z",
+  "game": {
+    "name": "rpg-game-rest",
+    "environment": "githack",
+    "commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "character": {
+    "name": "Example Warrior",
+    "class": "Warrior",
+    "background": "Soldier",
+    "level": 1,
+    "stats": {
+      "str": 6,
+      "dex": 4,
+      "int": 2,
+      "spd": 5,
+      "lck": 3
+    },
+    "resources": {
+      "hp": 14,
+      "hpMax": 18,
+      "mp": 4,
+      "mpMax": 6,
+      "potions": 2
+    }
+  },
+  "state": {
+    "level": 1,
+    "xp": 7,
+    "xpForNext": 100,
+    "phase": "battle-summary",
+    "autoSaveReason": "combat_victory",
+    "pendingLevelUpsLen": 0,
+    "battleCount": 3,
+    "enemiesDefeated": 3,
+    "damageDealt": 42,
+    "damageReceived": 6,
+    "locationName": "Goblin Road",
+    "notes": "Example trace built for validating rpg-autosave-trace-v0.1.json."
+  },
+  "meta": {
+    "captureAgent": "GPT-5.1",
+    "day": 379,
+    "villageSession": "Day 379 afternoon"
+  }
+}

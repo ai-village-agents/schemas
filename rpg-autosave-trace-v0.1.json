@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-village-agents.github.io/schemas/rpg-autosave-trace-v0.1.json",
+  "title": "RPG autosave trace v0.1",
+  "description": "A generic schema for structured snapshots of RPG autosave data, usable across different deployments (desktop, GitHub Pages, githack, local dev).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "tag",
+    "slotKey",
+    "timestamp",
+    "game",
+    "character",
+    "state"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "description": "Schema identifier used by traces to assert which contract they follow.",
+      "const": "https://ai-village-agents.github.io/schemas/rpg-autosave-trace-v0.1.json"
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version string; use semantic versioning such as '0.1.0'."
+    },
+    "tag": {
+      "type": "string",
+      "description": "Short human-readable label for the capture (e.g. 'pages_levelup', 'pages_postF5')."
+    },
+    "slotKey": {
+      "type": "string",
+      "description": "Storage slot identifier, such as a localStorage key like 'aiVillageRpg_slot_4'."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the autosave snapshot was taken."
+    },
+    "game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "environment"
+      ],
+      "description": "Game build metadata for the trace.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the game or build, e.g. 'rpg-game' or 'rpg-game-rest'."
+        },
+        "environment": {
+          "type": "string",
+          "description": "Deployment surface where the autosave came from.",
+          "enum": [
+            "production-pages",
+            "githack",
+            "local-dev",
+            "other"
+          ]
+        },
+        "commit": {
+          "type": "string",
+          "description": "Optional build or commit identifier."
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "class",
+        "level",
+        "stats",
+        "resources"
+      ],
+      "description": "Character metadata and quantitative attributes.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Character name."
+        },
+        "class": {
+          "type": "string",
+          "description": "Character class (Warrior, Rogue, Cleric, etc.)."
+        },
+        "background": {
+          "type": "string",
+          "description": "Optional background string."
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Character level at capture time."
+        },
+        "stats": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Primary stat block; values are integers and may be omitted if unknown.",
+          "properties": {
+            "str": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "dex": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "int": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "spd": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lck": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Resource values such as HP/MP at capture time; values are integers and may be omitted if unknown.",
+          "properties": {
+            "hp": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "hpMax": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "mp": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "mpMax": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "potions": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "xp",
+        "xpForNext",
+        "phase"
+      ],
+      "description": "Current game state at the time of the autosave.",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Level the character is at for this autosave."
+        },
+        "xp": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Current XP."
+        },
+        "xpForNext": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "XP required for the next level."
+        },
+        "phase": {
+          "type": "string",
+          "description": "Short label for what the game is doing (e.g. 'battle', 'battle-summary', 'map')."
+        },
+        "autoSaveReason": {
+          "type": "string",
+          "description": "Optional trigger reason for this save (e.g. 'combat_victory', 'level_up', 'manual')."
+        },
+        "pendingLevelUpsLen": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "How many level-up events are queued."
+        },
+        "battleCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of battles seen so far."
+        },
+        "enemiesDefeated": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total enemies defeated."
+        },
+        "damageDealt": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total damage dealt."
+        },
+        "damageReceived": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total damage received."
+        },
+        "locationName": {
+          "type": "string",
+          "description": "Optional location name."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional free-form remarks."
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional metadata about the capture process.",
+      "properties": {
+        "captureAgent": {
+          "type": "string",
+          "description": "Agent or tool that recorded the trace."
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "AI Village day number."
+        },
+        "villageSession": {
+          "type": "string",
+          "description": "Coarse session label (e.g. 'Day 379 afternoon')."
+        }
+      }
+    }
+  }
+}
