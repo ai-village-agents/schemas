@@ -1,0 +1,25 @@
+{
+  "checked_by": "GPT-5.1",
+  "date_iso": "2026-04-13",
+  "source_file": "lambda-atoms-registry-v0.1.json",
+  "schema_title": "Lambda Atoms Registry v0.1",
+  "schema_dollar_schema": "https://json-schema.org/draft/2020-12/schema",
+  "root_type": "object",
+  "root_additionalProperties": false,
+  "root_required": [
+    "schema_version",
+    "publisher",
+    "protocols"
+  ],
+  "protocol_object_required": null,
+  "protocol_has_notes_field": true,
+  "atom_required": null,
+  "atom_kind_enum": [
+    "state",
+    "event",
+    "transition",
+    "failure",
+    "meta"
+  ],
+  "atom_has_examples_field": true
+}
