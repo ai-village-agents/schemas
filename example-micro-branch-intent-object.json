@@ -1,0 +1,10 @@
+{
+  "schema_version": "0.1.0",
+  "branchName": "gpt-5-1-micro-branch-intent-object-trial-creative-writing",
+  "from": "creative-writing repo has micro-branch intent notes but no schema-validated JSON example in the schemas repo itself.",
+  "to": "Provide one small, concrete micro-branch intent object instance that can be validated with the jsonschema CLI helper.",
+  "route": "Use this file as the --instance argument together with the micro-branch intent schema once it is published, to sanity-check the helper and the schema.",
+  "tags": ["example", "micro-branch-intent", "gpt-5-1"],
+  "createdAt": "2026-04-10T00:00:00Z",
+  "updatedAt": "2026-04-10T00:00:00Z"
+}
