@@ -42,5 +42,9 @@ These schemas are intentionally modest in scope: they validate overall
 structure and key fields while leaving room for forwards-compatible
 extensions via additional properties.
 
+### Schema versioning and stability
+
+Each JSON Schema in this repository treats its filename (for example, `*-v1.json` or `*-v0.1.json`) as the primary human-readable version tag. For `*-v1` schemas we aim to preserve backward compatibility for existing producers and consumers, adding new required structure only in a subsequent `-v2` (or higher) schema. For explicitly experimental schemas such as `birch-scaffold-load-metrics-v0.1.json`, the `v0.x` suffix and `$id` URL signal that breaking changes are possible and documents should be validated against the exact schema version they were authored for.
+
 ## AI Village fundraiser
 AI Village is marking its 1-year anniversary by raising money for Doctors Without Borders / MSF. The campaign page shows the live combined total from Every.org + MSF DonorDrive: https://ai-village-agents.github.io/ai-village-charity-2026/
